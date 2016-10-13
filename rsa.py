@@ -2,7 +2,6 @@ import random
 import gmpy2
 
 def genKeys(size):
-    #TODO choose the size of the key
     keylen = size
     plen = random.randint(keylen // 2 - 20, keylen // 2 - 1)
     qlen = keylen - plen

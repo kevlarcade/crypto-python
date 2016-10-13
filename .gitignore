@@ -3,3 +3,5 @@ foo.pub
 __pycache__/
 .cli.py.swp
 .rsa.py.swp
+private.key
+public.key
