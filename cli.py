@@ -8,13 +8,15 @@ def main():
     parser.add_argument('action')
     parser.add_argument('--pub-key', dest='pubkey', default='public.key')
     parser.add_argument('--priv-key', dest='privkey', default='private.key')
+    parser.add_argument('--size', dest='keylen', default='1024', type=int)
 
     args = parser.parse_args()
 
     args.action = args.action.lower()
 
     if args.action == 'genkeys':
-        pubkey, privkey = genKeys()
+        keylen = args.keylen
+        pubkey, privkey = genKeys(keylen)
         f = open(args.pubkey, 'w')
         g = open(args.privkey, 'w')
         f.write(str(pubkey[0]) + '\n')

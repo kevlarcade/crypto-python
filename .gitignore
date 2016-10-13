@@ -1,3 +1,5 @@
 foo.priv
 foo.pub
 __pycache__/
+.cli.py.swp
+.rsa.py.swp
