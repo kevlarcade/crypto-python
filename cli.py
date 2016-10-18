@@ -4,6 +4,13 @@ from rsa import *
 import argparse
 import sys
 
+def readkey(fn):
+    f = open(fn, 'r')
+    e = int(f.readline())
+    n = int(f.readline())
+    f.close()
+    return (e, n)
+
 def main():
     parser = argparse.ArgumentParser(description='RSA utilities')
     parser.add_argument('action', help='genkeys, encrypt, decrypt, sign, check')
@@ -13,6 +20,9 @@ def main():
             help='private key with default name private.key')
     parser.add_argument('--size', dest='keylen', default='1024', type=int,
             help='size of the key with default value 1024')
+    parser.add_argument('--input', dest='input', help='input file to\
+            encrypt/decrypt/sign/check')
+    parser.add_argument('--output', dest='output', help='output file')
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -35,7 +45,14 @@ def main():
         f.close()
 
     elif args.action == 'encrypt':
-        pass
+        key = readkey(args.pubkey)
+        m = open(args.input, 'rb')
+        msg = m.read()
+        m.close()
+        fileout = encrypt(key, msg)
+        c = open(args.output, 'wb')
+        c.write(fileout)
+        c.close()
 
     elif args.action == 'decrypt':
         pass
