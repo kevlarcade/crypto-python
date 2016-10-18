@@ -2,13 +2,21 @@
 
 from rsa import *
 import argparse
+import sys
 
 def main():
     parser = argparse.ArgumentParser(description='RSA utilities')
-    parser.add_argument('action')
-    parser.add_argument('--pub-key', dest='pubkey', default='public.key')
-    parser.add_argument('--priv-key', dest='privkey', default='private.key')
-    parser.add_argument('--size', dest='keylen', default='1024', type=int)
+    parser.add_argument('action', help='genkeys, encrypt, decrypt, sign, check')
+    parser.add_argument('--pub-key', dest='pubkey', default='public.key',
+            help='public key with default name public.key')
+    parser.add_argument('--priv-key', dest='privkey', default='private.key',
+            help='private key with default name private.key')
+    parser.add_argument('--size', dest='keylen', default='1024', type=int,
+            help='size of the key with default value 1024')
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+        return
 
     args = parser.parse_args()
 
@@ -26,18 +34,17 @@ def main():
         g.close()
         f.close()
 
-    elif args.action =='encrypt':
+    elif args.action == 'encrypt':
         pass
 
-    elif args.action =='decrypt':
+    elif args.action == 'decrypt':
         pass
 
-    elif args.action =='sign':
+    elif args.action == 'sign':
         pass
 
-    elif args.action =='check':
+    elif args.action == 'check':
         pass
-
 
 if __name__ == "__main__":
     main()
