@@ -1,5 +1,6 @@
 import random
 import gmpy2
+import binascii
 
 def genKeys(size):
     keylen = size
@@ -18,22 +19,19 @@ def genKeys(size):
 
 def encryptblock(key, block):
     e, n = key
-    m = gmpy2.mpz(0)
-    cblock = []
 
-    for b in block:
-        m *= 256
-        m += b
+    # Convert the data block into an integer
+    m = int(str(binascii.hexlify(block), 'ascii'), 16)
 
     cm = pow(m, e, n)
 
-    while cm != 0:
-        b = cm % 256
-        cm //= 256
-        cblock.append(bytes([b]))
+    # Convert the new integer back to a data block
+    cblock = hex(cm)[2:]
+    if len(cblock) % 2 == 1:
+        cblock = '0' + cblock
+    cblock = binascii.unhexlify(bytes(cblock, 'ascii'))
 
-    cblock.reverse()
-    return b''.join(cblock)
+    return cblock
 
 def encrypt(key, msg):
     e, n = key
