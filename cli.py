@@ -46,23 +46,27 @@ def main():
 
     elif args.action == 'encrypt':
         key = readkey(args.pubkey)
-        m = open(args.input, 'rb')
-        msg = m.read()
-        m.close()
-        fileout = encrypt(key, msg)
-        c = open(args.output, 'wb')
-        c.write(fileout)
-        c.close()
+        f = open(args.input, 'rb')
+        msg = f.read()
+        f.close()
+
+        cmsg = encrypt(key, msg)
+
+        f = open(args.output, 'wb')
+        f.write(cmsg)
+        f.close()
 
     elif args.action == 'decrypt':
         key = readkey(args.privkey)
-        m = open(args.input, 'rb')
-        msg = m.read()
-        m.close()
-        fileout = decrypt(key, msg)
-        c = open(args.output, 'wb')
-        c.write(fileout)
-        c.close()
+        f = open(args.input, 'rb')
+        cmsg = f.read()
+        f.close()
+
+        msg = decrypt(key, cmsg)
+
+        f = open(args.output, 'wb')
+        f.write(msg)
+        f.close()
 
     elif args.action == 'sign':
         pass
