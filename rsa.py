@@ -1,6 +1,7 @@
 import random
 import gmpy2
 import binascii
+import struct
 
 def genKeys(size):
     keylen = size
@@ -40,8 +41,12 @@ def encrypt(key, msg):
     blksize = n.bit_length() - 1
     blksize //= 8
     cmsg = b''
+
     for s in range(0, len(msg), blksize):
-        cmsg += encryptblock(key, msg[s:s+blksize])
+        cblock = encryptblock(key, msg[s:s+blksize])
+        l = struct.pack('<H', len(cblock))
+        cmsg += l + cblock
+
     return cmsg
 
 def decrypt(key, msg):
