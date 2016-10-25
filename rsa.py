@@ -36,8 +36,6 @@ def encryptblock(key, block):
 
 def encrypt(key, msg):
     e, n = key
-    e = gmpy2.mpz(e)
-    n = gmpy2.mpz(n)
     blksize = n.bit_length() - 1
     blksize //= 8
     cmsg = b''
