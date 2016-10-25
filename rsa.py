@@ -17,7 +17,13 @@ def genKeys(keylen):
         p = gmpy2.next_prime(p)
         q = gmpy2.next_prime(q)
         e = 65537
-        d = gmpy2.invert(e, (p - 1) * (q - 1))
+        phi = (p - 1) * (q - 1)
+
+        # If e is not coprime with phi, decryption is not unique
+        if gmpy2.gcd(e, phi) != 1:
+            continue
+
+        d = gmpy2.invert(e, phi)
         N = p * q
 
         if N.bit_length() == keylen:
