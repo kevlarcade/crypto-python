@@ -21,15 +21,15 @@ def encryptblock(key, block):
     e, n = key
 
     # Convert the data block into an integer
-    m = int(str(binascii.hexlify(block), 'ascii'), 16)
+    m = int(binascii.hexlify(block).decode('ascii'), 16)
 
     cm = pow(m, e, n)
 
     # Convert the new integer back to a data block
-    cblock = hex(cm)[2:]
+    cblock = hex(cm)[2:].rstrip('L')
     if len(cblock) % 2 == 1:
         cblock = '0' + cblock
-    cblock = binascii.unhexlify(bytes(cblock, 'ascii'))
+    cblock = binascii.unhexlify(cblock.encode('ascii'))
 
     return cblock
 
