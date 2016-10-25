@@ -4,20 +4,25 @@ import binascii
 import struct
 
 def genKeys(keylen):
-    plen = random.randint(keylen // 2 - 20, keylen // 2 - 1)
-    qlen = keylen - plen
-    p = random.getrandbits(plen)
-    q = random.getrandbits(qlen)
+    while True:
+        plen = random.randint(keylen // 2 - 20, keylen // 2 - 1)
+        qlen = keylen - plen
+        p = random.getrandbits(plen)
+        q = random.getrandbits(qlen)
 
-    # Make sure p*q will be the right length
-    p |= 1 << (plen - 1)
-    q |= 1 << (qlen - 1)
+        # Make sure p*q will be the right length
+        p |= 1 << (plen - 1)
+        q |= 1 << (qlen - 1)
 
-    p = gmpy2.next_prime(p)
-    q = gmpy2.next_prime(q)
-    e = 65537
-    d = gmpy2.invert(e, (p - 1) * (q - 1))
-    N = p * q
+        p = gmpy2.next_prime(p)
+        q = gmpy2.next_prime(q)
+        e = 65537
+        d = gmpy2.invert(e, (p - 1) * (q - 1))
+        N = p * q
+
+        if N.bit_length() == keylen:
+            break
+
     pub = (e, N)
     priv = (d, N)
     return (pub, priv)
