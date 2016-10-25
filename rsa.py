@@ -30,7 +30,7 @@ def encryptblock(key, block):
     while cm != 0:
         b = cm % 256
         cm //= 256
-        cblock.append(bytes(b))
+        cblock.append(bytes([b]))
 
     cblock.reverse()
     return b''.join(cblock)
