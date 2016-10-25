@@ -69,7 +69,16 @@ def main():
         f.close()
 
     elif args.action == 'sign':
-        pass
+        key = readkey(args.privkey)
+        f = open(args.input, 'rb')
+        msg = f.read()
+        f.close()
+
+        smsg = sign(key, msg)
+
+        f = open(args.output, 'wb')
+        f.write(smsg)
+        f.close()
 
     elif args.action == 'check':
         pass

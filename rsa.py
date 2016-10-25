@@ -2,6 +2,7 @@ import random
 import gmpy2
 import binascii
 import struct
+import hashlib
 
 def genKeys(keylen):
     while True:
@@ -76,7 +77,9 @@ def decrypt(key, cmsg):
     return msg
 
 def sign(key, msg):
-    pass
+    h = hashlib.sha256(msg).digest()
+    l = struct.pack('<Q', len(msg))
+    return l + msg + encrypt(key, h)
 
 def check(key, msg):
     pass
