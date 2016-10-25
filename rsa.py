@@ -47,8 +47,18 @@ def encrypt(key, msg):
 
     return cmsg
 
-def decrypt(key, msg):
-    pass
+def decrypt(key, cmsg):
+    e, n = key
+    msg = b''
+    blockstart = 0
+
+    while blockstart < len(cmsg):
+        (l,) = struct.unpack('<H', cmsg[blockstart:blockstart+2])
+        blockstart += 2
+        msg += encryptblock(key, cmsg[blockstart:blockstart+l])
+        blockstart += l
+
+    return msg
 
 def sign(key, msg):
     pass

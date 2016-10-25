@@ -55,7 +55,14 @@ def main():
         c.close()
 
     elif args.action == 'decrypt':
-        pass
+        key = readkey(args.privkey)
+        m = open(args.input, 'rb')
+        msg = m.read()
+        m.close()
+        fileout = decrypt(key, msg)
+        c = open(args.output, 'wb')
+        c.write(fileout)
+        c.close()
 
     elif args.action == 'sign':
         pass
