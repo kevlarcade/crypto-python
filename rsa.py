@@ -3,12 +3,16 @@ import gmpy2
 import binascii
 import struct
 
-def genKeys(size):
-    keylen = size
+def genKeys(keylen):
     plen = random.randint(keylen // 2 - 20, keylen // 2 - 1)
     qlen = keylen - plen
     p = random.getrandbits(plen)
     q = random.getrandbits(qlen)
+
+    # Make sure p*q will be the right length
+    p |= 1 << (plen - 1)
+    q |= 1 << (qlen - 1)
+
     p = gmpy2.next_prime(p)
     q = gmpy2.next_prime(q)
     e = 65537
