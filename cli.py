@@ -81,7 +81,17 @@ def main():
         f.close()
 
     elif args.action == 'check':
-        pass
+        key = readkey(args.pubkey)
+        f = open(args.input, 'rb')
+        msg = f.read()
+        f.close()
+
+        c = check(key, msg)
+
+        if c:
+            print("Your signature is valide")
+        else:
+            print("Your signature is invalide")
 
 if __name__ == "__main__":
     main()

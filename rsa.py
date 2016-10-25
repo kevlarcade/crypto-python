@@ -82,4 +82,7 @@ def sign(key, msg):
     return l + msg + encrypt(key, h)
 
 def check(key, msg):
-    pass
+    (l,) = struct.unpack('<Q', msg[:8])
+    h = decrypt(key, msg[l + 8:])
+    m = msg[8:l + 8]
+    return h == hashlib.sha256(m).digest()
