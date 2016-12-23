@@ -71,7 +71,14 @@ def main():
     p = conn.recv(4096)
     p = decrypt(servPriv, p)
     h, p = check(cliPub, p)
+<<<<<<< HEAD
     if (h != True):
+=======
+    if (h == True):
+        p = int(p.decode('utf-8'))
+    else:
+        p = 0
+>>>>>>> 2d3a209cc3262c1ce7cedc8a122bae216735c1fe
         print('Warning the signature contain error')
     p = int(p.decode('utf-8'))
 
@@ -79,7 +86,14 @@ def main():
     g = conn.recv(4096)
     g = decrypt(servPriv, g)
     h, g = check(cliPub, g)
+<<<<<<< HEAD
     if (h != True):
+=======
+    if (h == True):
+        g = int(g.decode('utf-8'))
+    else:
+        g = 0
+>>>>>>> 2d3a209cc3262c1ce7cedc8a122bae216735c1fe
         print('Warning the signature contain error')
     g = int(g.decode('utf-8'))
 
