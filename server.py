@@ -60,32 +60,28 @@ def main():
     print('Key exchange for Diffie-Hellman')
 
     #Receiving A
-    a = s.recv(4096)
+    a = conn.recv(4096)
     a = decrypt(servPriv, a)
     h, a = check(cliPub, a)
-    if (h == True):
-        a = int(a.decode('utf-8'))
-    else:
-        a = 0
+    if (h != True):
         print('Warning the signature contain error')
+    a = int(a.decode('utf-8'))
 
     #Receiving p
-    p = s.recv(4096)
+    p = conn.recv(4096)
     p = decrypt(servPriv, p)
-    if (h == True):
-        p = int(p.decode('utf-8'))
-    else:
-        p = 0
+    h, p = check(cliPub, p)
+    if (h != True):
         print('Warning the signature contain error')
+    p = int(p.decode('utf-8'))
 
     #Receiving g
-    g = s.recv(4096)
+    g = conn.recv(4096)
     g = decrypt(servPriv, g)
-    if (h == True):
-        g = int(g.decode('utf-8'))
-    else:
-        g = 0
+    h, g = check(cliPub, g)
+    if (h != True):
         print('Warning the signature contain error')
+    g = int(g.decode('utf-8'))
 
     #Generating the private number
     r = generatePrivate() #random private number
@@ -107,11 +103,9 @@ def main():
             break
         data = decrypt(servPriv, data)
         h, m = check(cliPub, data)
-        if (h == True):
-            print('Received: ', m.decode('utf-8'))
-        else:
+        if (h != True):
             print('The message signature contain error!')
-            print('Received: ', m.decode('utf-8'))
+        print('Received: ', m.decode('utf-8'))
         #Sending a message to the client
         reply = input('Reply: ')
         if (reply == 'exit'):
