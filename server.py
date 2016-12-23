@@ -60,7 +60,7 @@ def main():
     print('Key exchange for Diffie-Hellman')
 
     #Receiving A
-    a = s.recv(4096)
+    a = conn.recv(4096)
     a = decrypt(servPriv, a)
     h, a = check(cliPub, a)
     if (h == True):
@@ -70,8 +70,9 @@ def main():
         print('Warning the signature contain error')
 
     #Receiving p
-    p = s.recv(4096)
+    p = conn.recv(4096)
     p = decrypt(servPriv, p)
+    h, p = check(cliPub, p)
     if (h == True):
         p = int(p.decode('utf-8'))
     else:
@@ -79,8 +80,9 @@ def main():
         print('Warning the signature contain error')
 
     #Receiving g
-    g = s.recv(4096)
+    g = conn.recv(4096)
     g = decrypt(servPriv, g)
+    h, g = check(cliPub, g)
     if (h == True):
         g = int(g.decode('utf-8'))
     else:
