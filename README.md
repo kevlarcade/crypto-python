@@ -29,7 +29,7 @@ Example:
 
 RSA
 ===
-Security of RSA depends on the difficulty of factoring large integers.
+Security of RSA depends on the difficulty of factoring large integers.  
 The file rsa.py is the library that implement:
 
 Key generation:
@@ -37,8 +37,6 @@ Key generation:
 * Size of the key (2048 by default)
 * 2 random prime numbers p and q
 * N a modulus number for private and public key as: N = p * q
-* The [Euler's totient
-function](https://en.wikipedia.org/wiki/Euler%27s_totient_function) φ(N) = (p
-- 1) * (q - 1)
+* The [Euler's totient function](https://en.wikipedia.org/wiki/Euler%27s_totient_function) φ(N) = (p - 1) * (q - 1)
 * e, an integer coprime with φ(N) and between 1 and φ(N).
 * d, the [modular multiplicative inverse](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse) of e[φ(N)].
