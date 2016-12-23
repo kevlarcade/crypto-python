@@ -18,8 +18,8 @@ def main():
             help='public key with default name public.key')
     parser.add_argument('--priv-key', dest='privkey', default='private.key',
             help='private key with default name private.key')
-    parser.add_argument('--size', dest='keylen', default='1024', type=int,
-            help='size of the key with default value 1024')
+    parser.add_argument('--size', dest='keylen', default='2048', type=int,
+            help='size of the key with default value 2048')
     parser.add_argument('--input', dest='input', help='input file to\
             encrypt/decrypt/sign/check')
     parser.add_argument('--output', dest='output', help='output file')
@@ -32,6 +32,7 @@ def main():
 
     args.action = args.action.lower()
 
+    #Call genkeys function
     if args.action == 'genkeys':
         keylen = args.keylen
         pubkey, privkey = genKeys(keylen)
@@ -44,6 +45,7 @@ def main():
         g.close()
         f.close()
 
+    #Call encrypt function
     elif args.action == 'encrypt':
         key = readkey(args.pubkey)
         f = open(args.input, 'rb')
@@ -56,6 +58,7 @@ def main():
         f.write(cmsg)
         f.close()
 
+    #Call decrypt function
     elif args.action == 'decrypt':
         key = readkey(args.privkey)
         f = open(args.input, 'rb')
@@ -68,6 +71,7 @@ def main():
         f.write(msg)
         f.close()
 
+    #Call sign function
     elif args.action == 'sign':
         key = readkey(args.privkey)
         f = open(args.input, 'rb')
@@ -80,13 +84,14 @@ def main():
         f.write(smsg)
         f.close()
 
+    #Call check function
     elif args.action == 'check':
         key = readkey(args.pubkey)
         f = open(args.input, 'rb')
         msg = f.read()
         f.close()
 
-        c = check(key, msg)
+        c, m = check(key, msg)
 
         if c:
             print("Your signature is valid")
