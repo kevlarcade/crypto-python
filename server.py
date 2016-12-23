@@ -31,7 +31,7 @@ def main():
 
     try:
         servPub = readkey(args.pubkey)
-        servPriv = readkey(args.pubkey)
+        servPriv = readkey(args.privkey)
     except FileNotFoundError:
         print('No key found. Generating…')
         servPub, servPriv = genKeys(args.keylen)

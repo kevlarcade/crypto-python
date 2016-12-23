@@ -31,7 +31,7 @@ def main():
 
     try: #if key are defined in parameters
         cliPub = readkey(args.pubkey)
-        cliPriv = readkey(args.pubkey)
+        cliPriv = readkey(args.privkey)
     except FileNotFoundError: #else generating a new set of key
         print('No key found. Generating…')
         cliPub, cliPriv = genKeys(args.keylen)
