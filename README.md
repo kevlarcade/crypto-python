@@ -119,7 +119,7 @@ For a full demo, you have to:
 ```
 3. Start the client with client's key and server's public key option
 ```
-./client.py --pub-key cli.pub --priv-key cli.priv --cli-key serv.pub
+./client.py --pub-key cli.pub --priv-key cli.priv --serv-key serv.pub
 ```
 4. Start chatting, it's a simple chat so you can't send a message before
 receiving an answer.
